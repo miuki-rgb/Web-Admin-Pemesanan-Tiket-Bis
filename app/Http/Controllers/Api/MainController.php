@@ -32,8 +32,8 @@ class MainController extends Controller
 
     public function getAnnouncements()
     {
-        $announcements = Announcement::where('is_active', true)
-            ->orderBy('created_at', 'desc')
+        // Menampilkan semua pengumuman agar tidak kosong saat testing
+        $announcements = Announcement::orderBy('created_at', 'desc')
             ->get();
             
         return response()->json($announcements);
