@@ -1,34 +1,92 @@
-# BusKet - Sistem Pemesanan Tiket Bus
+# Busket - Web Admin & API System 🚌
 
-BusKet adalah aplikasi berbasis web yang dirancang untuk mempermudah proses pemesanan tiket bus secara online. Aplikasi ini mengintegrasikan fungsi backend dan frontend dalam satu sistem (monolith) untuk menghubungkan operator bus (Admin) dengan penumpang (Pelanggan).
+[![Laravel](https://img.shields.io/badge/Framework-Laravel%2012-red)](https://laravel.com)
+[![PostgreSQL](https://img.shields.io/badge/Database-Supabase%20(Postgres)-blue)](https://supabase.com)
+[![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 
-Proyek ini dikembangkan secara individual sebagai demonstrasi kemampuan pengembangan full-stack menggunakan framework Laravel, mencakup manajemen data, pelaporan sistem, dan antarmuka pengguna yang responsif.
+**Busket** (Bus Ticket System) adalah sistem manajemen pemesanan tiket bus berbasis web yang berfungsi sebagai pusat kendali (Admin Panel) sekaligus penyedia layanan API untuk aplikasi mobile pelanggan. Sistem ini dirancang untuk memudahkan operasional perusahaan otobus dalam mengelola armada, rute, jadwal, hingga validasi tiket secara real-time.
 
-## Fitur Utama
+---
 
-Aplikasi ini memiliki dua peran pengguna utama dengan fitur sebagai berikut:
+## 🚀 Fitur Utama (Web Admin)
 
-1. Dashboard Admin
-   - Pusat informasi dan statistik sistem.
-   - Manajemen data Bus, Rute, dan Jadwal (CRUD).
-   - Pengelolaan data pengguna dan pesanan.
-   - Fitur pelaporan (Laporan Penjualan/Pemesanan) yang dapat diekspor ke format PDF dan Excel.
+- **Dashboard Statistik**: Ringkasan data pemesanan dan operasional bus.
+- **Manajemen Armada**: Pengelolaan data bus (nama, plat nomor, kapasitas).
+- **Manajemen Rute**: Pengaturan titik keberangkatan dan tujuan.
+- **Penjadwalan Otomatis**: Pengaturan jam keberangkatan, harga tiket, dan stok kursi.
+- **Verifikasi Pembayaran**: Sistem konfirmasi pembayaran tiket pelanggan.
+- **Validasi Tiket (QR Scan)**: Fitur scan QR Code tiket pelanggan yang terintegrasi untuk mencegah penggunaan tiket ganda.
+- **Sistem Pengumuman**: Posting berita, promo, atau info delay yang langsung muncul di aplikasi mobile pelanggan.
+- **Keamanan Berlapis**: Middleware akses khusus Admin dan proteksi CSRF/HTTPS.
 
-2. Fitur Pelanggan
-   - Pencarian jadwal keberangkatan bus.
-   - Pemesanan tiket secara online.
-   - Melihat riwayat pemesanan.
+---
 
-3. Sistem & Keamanan
-   - Autentikasi pengguna dan manajemen sesi (Session & Cookies).
-   - Validasi data di sisi frontend dan backend.
+## 🛠️ Teknologi yang Digunakan
 
-## Teknologi yang Digunakan
+- **Backend**: Laravel 12 (PHP 8.3)
+- **Database**: Supabase / PostgreSQL (Cloud Database)
+- **Authentication**: Laravel Sanctum (Token-based API Auth)
+- **Styling**: Tailwind CSS & Alpine.js
+- **Deployment**: Railway.app / Ubuntu Server
+- **Security**: Cloudflare Tunnel & HTTPS Encryption
 
-- Backend: Laravel (PHP Framework)
-- Frontend: Blade Templates
-- Styling: Tailwind CSS
-- Database: Postgresql
-- Tools Tambahan: DomPDF (Export PDF), Laravel Excel (Export Excel)
+---
 
-**Disclaimer projek ini masih dalam tahap pengembangan dan kemungkinan masih banyak bug atau error ditemukan**
+## 📱 Integrasi Mobile
+
+Project ini bertindak sebagai backend untuk aplikasi **Busket Mobile (Flutter)**. Endpoint API yang disediakan meliputi:
+- `POST /api/register` & `POST /api/login`
+- `GET /api/schedules` (Daftar jadwal bus)
+- `POST /api/bookings` (Pemesanan tiket)
+- `GET /api/my-tickets` (Daftar tiket pengguna)
+- `POST /api/profile` (Update profil & foto)
+
+---
+
+## ⚙️ Instalasi Lokal
+
+1. **Clone Repository**
+   ```bash
+   git clone https://github.com/miuki-rgb/Web-Admin-Pemesanan-Tiket-Bis.git
+   cd Web-Admin-Pemesanan-Tiket-Bis
+   ```
+
+2. **Install Dependensi**
+   ```bash
+   composer install
+   npm install && npm run build
+   ```
+
+3. **Konfigurasi Environment**
+   Salin file `.env.example` ke `.env` dan sesuaikan kredensial database (Supabase/MySQL).
+   ```bash
+   cp .env.example .env
+   php artisan key:generate
+   ```
+
+4. **Jalankan Migrasi & Server**
+   ```bash
+   php artisan migrate --seed
+   php artisan serve
+   ```
+
+---
+
+## 👨‍💻 Identitas Pengembang
+
+Project ini dikembangkan sebagai bagian dari tugas besar / UAS oleh:
+- **Nama**: Luki Solihin
+- **NIM**: 23552011413
+- **Kelas**: TIFRP23CNSB
+- **Mata Kuliah**: UAS Pemrograman Web
+
+---
+
+## 📄 Lisensi
+
+Project ini berada di bawah lisensi **MIT**.
+
+---
+<p align="center">
+  <b>@copyright by 23552011413_Luki Solihin_TIFRP23CNSB_UASWEB!</b>
+</p>
