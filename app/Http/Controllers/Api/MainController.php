@@ -139,23 +139,21 @@ class MainController extends Controller
 
     public function serveImage($filename)
     {
-        $path = storage_path('app/public/announcements/' . $filename);
-
-        if (!file_exists($path)) {
-            abort(404);
+        if (!\Illuminate\Support\Facades\Storage::disk('public')->exists('announcements/' . $filename)) {
+            return response()->json(['error' => 'File not found at: announcements/' . $filename], 404);
         }
 
+        $path = \Illuminate\Support\Facades\Storage::disk('public')->path('announcements/' . $filename);
         return response()->file($path);
     }
 
     public function serveProfileImage($filename)
     {
-        $path = storage_path('app/public/profiles/' . $filename);
-
-        if (!file_exists($path)) {
-            abort(404);
+        if (!\Illuminate\Support\Facades\Storage::disk('public')->exists('profiles/' . $filename)) {
+            return response()->json(['error' => 'File not found at: profiles/' . $filename], 404);
         }
 
+        $path = \Illuminate\Support\Facades\Storage::disk('public')->path('profiles/' . $filename);
         return response()->file($path);
     }
 }
