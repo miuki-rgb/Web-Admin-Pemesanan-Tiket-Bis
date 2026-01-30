@@ -8,6 +8,11 @@ use App\Http\Controllers\Api\MainController;
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
+// Add options handler for CORS
+Route::options('{any}', function() {
+    return response()->json([], 200);
+})->where('any', '.*');
+
 // Public Routes
 Route::get('/schedules', [MainController::class, 'getSchedules']);
 Route::get('/announcements', [MainController::class, 'getAnnouncements']);
