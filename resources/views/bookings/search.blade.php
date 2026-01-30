@@ -87,6 +87,43 @@
         </div>
     </div>
 
+    <!-- Announcements Section -->
+    @if($announcements->count() > 0)
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            @foreach($announcements as $announce)
+                <div class="rounded-xl p-6 shadow-md border-l-4 relative overflow-hidden
+                    {{ $announce->type == 'promo' ? 'bg-yellow-50 border-yellow-400 text-yellow-800' : 
+                       ($announce->type == 'delay' ? 'bg-red-50 border-red-500 text-red-800' : 'bg-blue-50 border-blue-400 text-blue-800') }}">
+                    
+                    <div class="flex items-start justify-between mb-2">
+                        <h3 class="font-bold text-lg flex items-center">
+                            @if($announce->type == 'promo')
+                                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"></path></svg>
+                            @elseif($announce->type == 'delay')
+                                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                            @else
+                                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            @endif
+                            {{ $announce->title }}
+                        </h3>
+                    </div>
+                    
+                    <p class="text-sm opacity-90 leading-relaxed">
+                        {{ $announce->content }}
+                    </p>
+
+                    @if($announce->valid_until)
+                        <div class="mt-4 text-xs font-semibold opacity-75">
+                            Berlaku sampai: {{ \Carbon\Carbon::parse($announce->valid_until)->format('d M Y') }}
+                        </div>
+                    @endif
+                </div>
+            @endforeach
+        </div>
+    </div>
+    @endif
+
     <!-- Results Section -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         @if(request()->has('origin') || request()->has('destination'))

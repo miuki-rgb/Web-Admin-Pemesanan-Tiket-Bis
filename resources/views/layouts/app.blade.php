@@ -93,7 +93,7 @@
                     </div>
                 </div>
                 <div class="mt-12 pt-8 border-t border-white/10 text-center text-sm text-p-blue">
-                    &copy; {{ date('Y') }} TiketBus System. All rights reserved.
+                    &copy; copyright by 23552011413_Luki Solihin_TIFRP23CNSB_UASWEB!
                 </div>
             </footer>
         </div>

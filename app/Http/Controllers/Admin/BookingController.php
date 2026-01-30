@@ -47,25 +47,31 @@ class BookingController extends Controller
 
     public function scanTicket(Request $request)
     {
-        // Expecting 'qr_code' from the request
         $qrData = $request->input('qr_code');
 
         $booking = Booking::where('qr_code_data', $qrData)->first();
 
         if (!$booking) {
-            return response()->json(['valid' => false, 'message' => 'Ticket not found.']);
+            return response()->json(['valid' => false, 'message' => 'Tiket tidak ditemukan!']);
+        }
+
+        if ($booking->status === 'used') {
+            return response()->json(['valid' => false, 'message' => 'Tiket sudah pernah digunakan sebelumnya!']);
         }
 
         if ($booking->status !== 'confirmed') {
-            return response()->json(['valid' => false, 'message' => 'Ticket status is ' . $booking->status]);
+            return response()->json(['valid' => false, 'message' => 'Tiket belum dikonfirmasi oleh admin! Status: ' . $booking->status]);
         }
 
-        // Ideally, we would mark it as 'used' or 'checked_in' here to prevent reuse.
-        // For now, let's just confirm it's valid.
+        // UPDATE STATUS TO USED PERMANENTLY
+        \Illuminate\Support\Facades\DB::transaction(function () use ($booking) {
+            $booking->status = 'used';
+            $booking->save();
+        });
         
         return response()->json([
             'valid' => true,
-            'message' => 'Ticket valid!',
+            'message' => 'Tiket Valid! Penumpang dipersilakan masuk.',
             'passenger' => $booking->user->name,
             'route' => $booking->schedule->route->origin . ' - ' . $booking->schedule->route->destination,
             'bus' => $booking->schedule->bus->name

@@ -93,6 +93,13 @@
                     Jadwal & Tiket
                 </a>
 
+                <a href="{{ route('admin.announcements.index') }}" class="group flex items-center px-4 py-3 text-sm font-medium rounded-xl transition-all duration-200 {{ request()->routeIs('admin.announcements.*') ? 'bg-p-red text-white shadow-lg shadow-red-900/30' : 'text-gray-300 hover:bg-white/10 hover:text-white' }}">
+                    <svg class="w-5 h-5 mr-3 transition-colors {{ request()->routeIs('admin.announcements.*') ? 'text-white' : 'text-p-blue group-hover:text-white' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"></path>
+                    </svg>
+                    Pengumuman
+                </a>
+
                 <p class="px-4 text-xs font-bold text-p-blue uppercase tracking-wider mb-2 mt-6">Operasional</p>
 
                 <a href="{{ route('admin.bookings.index') }}" class="group flex items-center px-4 py-3 text-sm font-medium rounded-xl transition-all duration-200 {{ request()->routeIs('admin.bookings.*') ? 'bg-p-red text-white shadow-lg shadow-red-900/30' : 'text-gray-300 hover:bg-white/10 hover:text-white' }}">
@@ -117,17 +124,17 @@
                 </a>
             </nav>
             
-            <div class="absolute bottom-0 w-full p-4 bg-black/20 border-t border-white/5">
+            <a href="{{ route('profile.edit') }}" class="absolute bottom-0 w-full p-4 bg-black/20 border-t border-white/5 hover:bg-black/30 transition cursor-pointer block">
                 <div class="flex items-center">
                     <div class="h-10 w-10 rounded-full bg-p-red flex items-center justify-center text-white font-bold border-2 border-p-cream">
                         {{ substr(Auth::user()->name, 0, 1) }}
                     </div>
                     <div class="ml-3">
                         <p class="text-sm font-medium text-white">{{ Auth::user()->name }}</p>
-                        <p class="text-xs text-p-blue">Administrator</p>
+                        <p class="text-xs text-p-blue">Administrator (Edit Profil)</p>
                     </div>
                 </div>
-            </div>
+            </a>
         </aside>
 
         <!-- Main Content -->
@@ -139,11 +146,6 @@
                         @yield('header')
                     </h2>
                     <div class="flex items-center space-x-6">
-                        <a href="{{ route('home') }}" class="text-sm font-medium text-gray-500 hover:text-p-red flex items-center transition-colors" target="_blank">
-                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
-                            Lihat Website
-                        </a>
-                        <div class="h-6 w-px bg-gray-300"></div>
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
                             <button type="submit" class="text-sm font-medium text-p-red hover:text-p-maroon hover:bg-red-50 px-4 py-2 rounded-lg transition-colors flex items-center">
@@ -176,6 +178,13 @@
 
                 @yield('content')
             </div>
+
+            <!-- Footer -->
+            <footer class="py-6 px-8 border-t border-gray-200 bg-white/50 text-center">
+                <p class="text-sm text-gray-500 font-medium">
+                    &copy; copyright by 23552011413_Luki Solihin_TIFRP23CNSB_UASWEB!
+                </p>
+            </footer>
         </main>
     </div>
 </body>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Booking;
 use App\Models\Route;
 use App\Models\Schedule;
+use App\Models\Announcement;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -12,6 +13,15 @@ class BookingController extends Controller
 {
     public function search(Request $request)
     {
+        // Fetch active announcements
+        $announcements = Announcement::where('is_active', true)
+            ->where(function($q) {
+                $q->whereNull('valid_until')
+                  ->orWhere('valid_until', '>=', now());
+            })
+            ->latest()
+            ->get();
+
         $origin = $request->input('origin');
         $destination = $request->input('destination');
         $date = $request->input('date');
@@ -37,7 +47,7 @@ class BookingController extends Controller
         $origins = Route::select('origin')->distinct()->pluck('origin');
         $destinations = Route::select('destination')->distinct()->pluck('destination');
 
-        return view('bookings.search', compact('schedules', 'origins', 'destinations'));
+        return view('bookings.search', compact('schedules', 'origins', 'destinations', 'announcements'));
     }
 
     public function create(Schedule $schedule)
