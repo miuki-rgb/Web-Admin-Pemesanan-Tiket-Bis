@@ -32,7 +32,7 @@ Route::middleware('auth')->group(function () {
         // Force logout for non-admins
         auth()->guard('web')->logout();
         return redirect()->route('login')->withErrors(['email' => 'Akun ini hanya untuk Aplikasi Mobile.']);
-    })->name('home');
+    })->name('dashboard');
 });
 
 // Admin Routes
